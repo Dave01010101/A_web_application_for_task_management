@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Dodaj inne pliki CSS lub inne elementy nagłówka, jeśli są potrzebne -->
+    <link rel="stylesheet" href="notifications.css">
+
+    <!-- Simple MDL Progress Bar -->
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+    <!-- Skrypt dla filtrowania -->
+    <script>
+        function filterItems(category) {
+            const kanbanLists = document.querySelectorAll('.kanban');
+            
+            // Ukryj wszystkie listy
+            kanbanLists.forEach(list => {
+                list.style.display = 'none';
+            });
+            
+            // Pokaż tylko listę z wybranej kategorii
+            const selectedList = document.querySelector(`.kanban.${category}`);
+            if (selectedList) {
+                selectedList.style.display = 'block';
+            }
+        }
+    </script>
+
+    <!-- Style dla przycisków filtrowania -->
+    <style>
+        .filter-button {
+            cursor: pointer;
+            margin-right: 10px;
+            padding: 5px 10px;
+            background-color: #ddd;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Przyciski filtrowania -->
+    <div>
+        <button class="filter-button" onclick="filterItems('To-do')">View only To do</button>
+        <button class="filter-button" onclick="filterItems('progress')">View only In progress</button>
+        <button class="filter-button" onclick="filterItems('Done')">View only Done</button>
+        <button id="move-to-archive-button" onclick="moveToArchive()">Move Done to Archive</button>
+    </div>
+
+    <div id="p1" class="mdl-progress mdl-js-progress"></div>
+    <script>
+        document.querySelector('#p1').addEventListener('mdl-componentupgraded', function () {
+            this.MaterialProgress.setProgress(44);
+        });
+    </script>
+
+    <div class="dd">
+        <!-- Lista "To do" -->
+        <ol class="kanban To-do">
+            <div class="kanban__title">
+                <h2><i class="material-icons"></i> To do</h2>
+            </div>
+            <li class="dd-item" data-id="1">
+                <h3 class="title dd-handle"></h3>
+                <div class="text" contenteditable="true"></div>
+            </li>
+            <li class="dd-item" data-id="4">
+                <h3 class="title dd-handle"></h3>
+                <div class="text" contenteditable="true"></div>
+            </li>
+            <li class="dd-item" data-id="3">
+                <h3 class="title dd-handle"></h3>
+                <div class="text" contenteditable="true"></div>
+            </li>
+            <!-- Koniec elementów listy To-do -->
+        </ol>
+
+        <!-- Lista "In progress" -->
+        <ol class="kanban progress">
+            <h2><i class="material-icons"></i> In progress</h2>
+            <li class="dd-item" data-id="5">
+                <h3 class="title dd-handle"></h3>
+                <div class="text" contenteditable="true"></div>
+            </li>
+        </ol>
+
+        <!-- Lista "Done" -->
+        <ol class="kanban Done">
+            <h2><i class="material-icons"></i> Done</h2>
+            <li class="dd-item" data-id="5">
+                <h3 class="title dd-handle"></h3>
+                <div class="text" contenteditable="true"></div>
+            </li>
+            <li class="dd-item" data-id="2">
+                <h3 class="title dd-handle"></h3>
+                <div class="text" contenteditable="true"></div>
+            </li>
+            <!-- Koniec elementów listy Done -->
+        </ol>
+
+    </div>
+</body>
+
+</html>
